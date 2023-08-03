@@ -4,6 +4,7 @@ import imageio
 import json
 import random
 import time
+import datetime
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
@@ -708,6 +709,8 @@ def train():
     # writer = SummaryWriter(os.path.join(basedir, 'summaries', expname))
     
     start = start + 1
+    
+    
     for i in trange(start, N_iters):
         time0 = time.time()
 
@@ -874,5 +877,11 @@ def train():
 
 if __name__=='__main__':
     torch.set_default_tensor_type('torch.cuda.FloatTensor')
-
+    start_time = time.time()
+    
     train()
+
+    total_time = time.time() - start_time
+    total_time_str = str(datetime.timedelta(seconds=int(total_time)))
+    print()
+    print(f"Total training time: {total_time_str}")
